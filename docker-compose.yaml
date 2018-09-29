@@ -1,0 +1,34 @@
+version: '3.3'
+services:
+  db:
+    image: postgres:alpine
+    volumes:
+      - source: db-dev-data
+        target: /var/lib/postgresql/data
+        type: volume
+
+  redis:
+    image: redis:alpine
+    volumes:
+      - source: redis-data
+        target: /data
+        type: volume
+
+  app:
+    stdin_open: true
+    tty: true
+    build: .
+    links:
+      - db
+      - redis
+    expose:
+      - 3000
+    volumes:
+      - .:/app:delegated
+    env_file:
+      - ${ENV_FILE:-.env}
+
+
+volumes:
+  db-dev-data:
+  redis-data:
