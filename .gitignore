@@ -1,3 +1,11 @@
+# Environment
 .DS_Store
 *.swp
 .env*
+.byebug-history
+.bundle
+
+# Rails
+tmp/
+public/
+log/*.log
