@@ -11,4 +11,4 @@ ENV app /app
 RUN mkdir $app
 WORKDIR $app
 
-CMD rails s -b 0.0.0.0
+CMD ./bin/setup && rails s -b 0.0.0.0

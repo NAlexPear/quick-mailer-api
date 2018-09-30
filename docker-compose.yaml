@@ -26,7 +26,7 @@ services:
     volumes:
       - .:/app:delegated
     env_file:
-      - ${ENV_FILE:-.env}
+      - .env
 
 
 volumes:
