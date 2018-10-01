@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2018_10_01_011142) do
   enable_extension "plpgsql"
 
   create_table "errors", force: :cascade do |t|
-    t.string "type"
+    t.integer "failure_type", default: 1
     t.bigint "message_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

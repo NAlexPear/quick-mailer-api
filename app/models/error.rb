@@ -1,5 +1,5 @@
 class Error < ApplicationRecord
   belongs_to :message
 
-  validates_presence_of :type
+  enum failure_type: [:smtp, :network]
 end
