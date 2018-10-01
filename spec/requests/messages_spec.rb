@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+
 RSpec.describe 'Messages API', type: :request do
   let!(:messages) { create_list(:message, 10) }
   let(:message_id) { messages.first.id }

@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   before_action :find_message, only: [:show]
+  before_action :create_message, only: [:create]
 
   def index
     @messages = Message.all
@@ -12,9 +13,9 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @todo = Message.create!(message_params)
+    GenericMailer.with(@message).email.deliver_later
 
-    render json: @todo, status: :created
+    render json: @message, status: :created
   end
 
   private
@@ -28,5 +29,12 @@ class MessagesController < ApplicationController
 
   rescue ActiveRecord::RecordNotFound => error
     render json: { message: error.message }, status: :not_found
+  end
+
+  def create_message
+    @message = Message.create!(message_params)
+
+  rescue ActiveRecord::RecordInvalid => error
+    render json: { message: error.message }, status: :unprocessable_entity
   end
 end
