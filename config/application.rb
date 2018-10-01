@@ -15,9 +15,10 @@ Bundler.require(*Rails.groups)
 module QuickMailerApi
   class Application < Rails::Application
     EMAIL_DOMAIN = ENV.fetch('DOMAIN_NAME', 'example.com')
+    EMAIL_USER = ENV.fetch('DEFAULT_USER', 'notifications')
 
     config.load_defaults 5.2
-    config.action_mailer.default_options = { from: "notifications@#{EMAIL_DOMAIN}" }
+    config.action_mailer.default_options = { from: "#{EMAIL_USER}@#{EMAIL_DOMAIN}" }
     config.api_only = true
     config.active_job.queue_adapter = :sidekiq
   end

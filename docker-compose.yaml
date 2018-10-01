@@ -18,6 +18,7 @@ services:
     stdin_open: true
     tty: true
     build: .
+    command: /bin/bash -c "./bin/setup && rails s -b '0.0.0.0'"
     links:
       - db
       - redis
@@ -27,6 +28,20 @@ services:
       - .:/app:delegated
     env_file:
       - .env
+
+  sidekiq:
+    tty: true
+    build: .
+    command: bundle exec sidekiq -C ./config/sidekiq.yaml
+    links:
+      - db
+      - redis
+    volumes:
+      - .:/app:delegated
+    env_file:
+      - .env
+
+
 
 
 volumes:

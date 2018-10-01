@@ -11,9 +11,9 @@ class GenericMailer < ApplicationMailer
   private
 
   def generate_message_values
-    @name, @email, @subject = params.values_at(:name, :email, :subject)
-    @name ||= 'Wonderful User'
-    @subject ||= 'Welcome!'
+    @name = params[:name] || 'Wonderful User'
+    @subject = params[:subject] || 'Welcome!'
+    @email = params[:email]
 
     raise NoRecipient unless @email.present?
   end
